@@ -23,5 +23,7 @@ urlpatterns = [
     path('', include('tree.urls')),
     path('', include('weather.urls')),
 
+    path('', include('csv_reader.urls')),
+
 
 ]

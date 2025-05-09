@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'tree',
     'weather',
+    'csv_reader',
     'rest_framework',
 ]
 
