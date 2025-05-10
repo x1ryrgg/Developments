@@ -14,3 +14,18 @@ class EmployeeReport(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.id})"
+
+
+class Report(models.Model):
+    id = models.AutoField(primary_key=True)
+    total_employees = models.PositiveIntegerField()
+    total_hours_worked = models.PositiveIntegerField()
+    total_hours_late = models.PositiveIntegerField()
+    average_hours_worked = models.PositiveIntegerField()
+    average_hourly_rate = models.PositiveIntegerField()
+    files_processed = models.PositiveIntegerField()
+    files_names = models.CharField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.total_hours_worked} ({self.total_hours_late})"
