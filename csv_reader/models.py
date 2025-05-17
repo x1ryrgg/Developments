@@ -3,7 +3,7 @@ from django.db import models
 
 class EmployeeReport(models.Model):
     id = models.AutoField(primary_key=True)
-    employee_id = models.CharField()
+    employee_id = models.CharField(max_length=1000)
     name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     hours_worked = models.IntegerField()
@@ -24,7 +24,7 @@ class Report(models.Model):
     average_hours_worked = models.PositiveIntegerField()
     average_hourly_rate = models.PositiveIntegerField()
     files_processed = models.PositiveIntegerField()
-    files_names = models.CharField()
+    files_names = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

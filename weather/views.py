@@ -1,8 +1,11 @@
 import os
+from urllib import response
+import datetime
 
 import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework import status
 from dotenv import load_dotenv
 
@@ -43,3 +46,30 @@ def get_weather(request):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+class SymbolsRateView(APIView):
+    def get(self,request):
+        url = "https://data.fixer.io/api/symbols?access_key=8fd2adec91e2983adf9f30d29bbe3a9f"
+        symbol = request.query_params.get('symbol')
+
+        response = requests.get(url)
+        data = response.json()
+        # dollar = {key: value for key, value in data['symbols'].items() if "Dollar" in value}
+
+        if symbol:
+            if symbol in data['symbols']:
+                return Response({symbol: data['symbols'][symbol]}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Symbol not found"}, status=404)
+        else:
+            return Response(data['symbols'])
+
+
+
+class LatestRateView(APIView):
+    def get(self,request):
+        url = 'https://data.fixer.io/api/latest?access_key=8fd2adec91e2983adf9f30d29bbe3a9f'
+
+        response = requests.get(url)
+        data = response.json()
+
+        return Response(data)
