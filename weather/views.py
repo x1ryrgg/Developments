@@ -48,7 +48,8 @@ def get_weather(request):
 
 class SymbolsRateView(APIView):
     def get(self,request):
-        url = "https://data.fixer.io/api/symbols?access_key=8fd2adec91e2983adf9f30d29bbe3a9f"
+        ACCESS_KEY = os.getenv('ACCESS_KEY')
+        url = f"https://data.fixer.io/api/symbols?access_key={ACCESS_KEY}"
         symbol = request.query_params.get('symbol')
 
         response = requests.get(url)
@@ -67,9 +68,13 @@ class SymbolsRateView(APIView):
 
 class LatestRateView(APIView):
     def get(self,request):
-        url = 'https://data.fixer.io/api/latest?access_key=8fd2adec91e2983adf9f30d29bbe3a9f'
+        base = request.query_params.get('base', 'EUR').upper()
+        ACCESS_KEY = os.getenv('ACCESS_KEY')
+        url = f'https://data.fixer.io/api/latest?access_key={ACCESS_KEY}&base={base}'
 
         response = requests.get(url)
         data = response.json()
 
         return Response(data)
+
+
